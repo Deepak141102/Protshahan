@@ -14,10 +14,18 @@ import JsonData from "../Technology/Inocme.json"; // Import the JSON data
 import communityJsonData from "../Art/beat.json"; // Renamed imported data to avoid conflict
 
 // Register chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const IssuesChart = () => {
-  const firstGenerationLearners = IncomeIssuesJson?.First_Generation_Learner || [];
+  const firstGenerationLearners =
+    IncomeIssuesJson?.First_Generation_Learner || [];
   const totalRespondents = firstGenerationLearners[3]?.total_attended || 0;
 
   const firstGenPercentage = firstGenerationLearners.map((item) => {
@@ -48,6 +56,7 @@ const IssuesChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -106,17 +115,15 @@ const IssuesChart = () => {
   const [communityChartData, setCommunityChartData] = useState(null); // Renamed state
 
   useEffect(() => {
-    const applicantsData = communityJsonData?.community_or_gec?.applicants || [];
+    const applicantsData =
+      communityJsonData?.community_or_gec?.applicants || [];
     setCommunityChartData({
       labels: applicantsData.map((item) => item.type),
       datasets: [
         {
           label: "Applicants Count",
           data: applicantsData.map((item) => item.percentage_of_total),
-          backgroundColor: [
-            "rgb(224, 70, 31)",
-            "rgb(101, 25, 11)",
-          ],
+          backgroundColor: ["rgb(224, 70, 31)", "rgb(101, 25, 11)"],
           borderColor: "rgba(255, 255, 255, 1)",
           borderWidth: 2,
         },
@@ -126,6 +133,7 @@ const IssuesChart = () => {
 
   const CommunityOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
@@ -180,18 +188,24 @@ const IssuesChart = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center gap-4 p-3 max-md:flex-col">
-        <div className="w-1/2  max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
+      <div className="flex  justify-center items-center gap-6  bg-[#dcdcdc]  max-md:flex-col">
+        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
           <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
             Salary Analysis - First Generation Learner Percentage
           </h2>
-          <Bar data={chartData} options={options} />
+          <div className="w-full max-md:h-[54vh] h-full">
+            <Bar data={chartData} options={options} />
+          </div>
         </div>
-        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
+        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
           <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
             Community or GEC Bar Chart
           </h2>
-          {communityChartData && <Bar data={communityChartData} options={CommunityOptions} />}
+          <div className="w-full max-md:h-[54vh] h-full">
+            {communityChartData && (
+              <Bar data={communityChartData} options={CommunityOptions} />
+            )}
+          </div>
         </div>
       </div>
     </>

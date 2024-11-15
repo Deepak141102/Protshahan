@@ -133,21 +133,24 @@ const HomeVisitsPieChart = () => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-6 p-5 bg-[#dcdcdc] max-md:flex-col">
+    <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
       {/* Home Visits Pie Chart */}
-      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
         <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
           Home Visits Pie Chart
         </h2>
+        <div className="w-full max-md:h-[54vh] h-full">
+
         {chartData && <Pie data={chartData} options={options} />}
+        </div>
       </div>
 
       {/* Family Members Bar Chart */}
-      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
         <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
           Family Members Distribution
         </h2>
-        <div className="w-full h-full flex justify-center">
+        <div className="w-full max-md:h-[54vh] h-full">
           {memberData && <Bar data={memberData} options={memberOptions} />}
         </div>
       </div>
