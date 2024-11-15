@@ -1,31 +1,51 @@
-import React from 'react';
-import { Pie, Doughnut, Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import IncomeIssuesJson from '../Technology/Issues.json'; // Import the JSON data
+import React from "react";
+import { Pie, Doughnut, Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+} from "chart.js";
+import IncomeIssuesJson from "../Technology/Issues.json"; // Import the JSON data
+import { text } from "d3";
 
 // Register chart.js components for Pie, Doughnut, and Bar charts
-ChartJS.register(ArcElement, Tooltip, Legend, Title, CategoryScale, LinearScale, BarElement);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  CategoryScale,
+  LinearScale,
+  BarElement
+);
 
 const ServiverChart = () => {
   // Abuse Survivor data
   const abuseSurvivorData = IncomeIssuesJson?.["Abuse Survivor"] || [];
-  const abuseSurvivorPercentage = abuseSurvivorData.map(item => {
+  const abuseSurvivorPercentage = abuseSurvivorData.map((item) => {
     const survivorCount = item?.["Survivor of abuse"];
     const totalAttended = item?.["total_attended"];
-    return survivorCount && totalAttended ? ((survivorCount / totalAttended) * 100).toFixed(2) : "0";
+    return survivorCount && totalAttended
+      ? ((survivorCount / totalAttended) * 100).toFixed(2)
+      : "0";
   });
 
   const chartData = {
-    labels: abuseSurvivorData.map(item => item.Salary),
+    labels: abuseSurvivorData.map((item) => item.Salary),
     datasets: [
       {
-        label: 'Abuse Survivor Percentage (%)',
+        label: "Abuse Survivor Percentage (%)",
         data: abuseSurvivorPercentage,
         backgroundColor: [
           "rgb(224, 70, 31)", // Color 1
           "rgb(101, 25, 11)", // Color 2
         ],
-        borderColor: '#2F855A',
+        borderColor: "#2F855A",
         borderWidth: 1,
       },
     ],
@@ -33,14 +53,14 @@ const ServiverChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
       },
       title: {
         display: true,
-        text: 'Abuse Survivor Percentage by Salary',
-        color: '#2D3748',
+        color: "#e8461e",
         font: { size: 16 },
       },
       tooltip: {
@@ -63,29 +83,51 @@ const ServiverChart = () => {
         ticks: {
           stepSize: 5, // Set increment to 5
         },
+        title: {
+          display: true,
+          text: "Number of Scholarships Disbursed",
+          font: {
+            size: 13,
+            weight: "bold",
+          },
+          color: "#e8461e",
+        },
       },
+      x:{
+        title: {
+          display: true,
+          text: "Salary",
+          font: {
+            size: 13,
+            weight: "bold",
+          },
+          color: "#e8461e",
+        },
+      }
     },
   };
 
   // Domestic Violence data
   const domesticViolenceData = IncomeIssuesJson?.domestic_violence || [];
-  const domesticViolencePercentage = domesticViolenceData.map(item => {
+  const domesticViolencePercentage = domesticViolenceData.map((item) => {
     const survivorCount = item?.["Survivor of domestic violence"];
     const totalAttended = item?.["total_attended"];
-    return survivorCount && totalAttended ? ((survivorCount / totalAttended) * 100).toFixed(2) : "0";
+    return survivorCount && totalAttended
+      ? ((survivorCount / totalAttended) * 100).toFixed(2)
+      : "0";
   });
 
   const DomesticChartData = {
-    labels: domesticViolenceData.map(item => item.Salary),
+    labels: domesticViolenceData.map((item) => item.Salary),
     datasets: [
       {
-        label: 'Domestic Violence Survivor Percentage (%)',
+        label: "Domestic Violence Survivor Percentage (%)",
         data: domesticViolencePercentage,
         backgroundColor: [
           "rgb(224, 70, 31)", // Color 1
           "#121331", // Color 4
         ],
-        borderColor: '#2B6CB0',
+        borderColor: "#e8461e",
         borderWidth: 1,
       },
     ],
@@ -93,14 +135,16 @@ const ServiverChart = () => {
 
   const DomesticOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
-      },      title: {
+        
+      },
+      title: {
         display: true,
-        text: 'Domestic Violence Survivor Percentage by Salary',
-        color: '#2D3748',
-        font: { size: 16 },
+        color: "#e8461e",
+        font: { size: 16, weight: "bold" },
       },
       tooltip: {
         callbacks: {
@@ -122,23 +166,49 @@ const ServiverChart = () => {
         ticks: {
           stepSize: 5, // Set increment to 5
         },
+        title: {
+          display: true,
+          text: "Number of Scholarships Disbursed",
+          font: {
+            size: 13,
+            weight: "bold",
+          },
+          color: "#e8461e",
+        },
       },
+      x:{
+        title: {
+          display: true,
+          text: "Salary",
+          font: {
+            size: 13,
+            weight: "bold",
+          },
+          color: "#e8461e",
+        },
+      }
     },
   };
 
   return (
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
-      
       {/* Abuse Survivor Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-gray-700">Salary Analysis - Abuse Survivor Percentage (Bar)</h2>
-        <Bar data={chartData} options={options} />
+        <h2 className="text-xl font-bold text-center mb-4 text-[#e8461e]">
+          Salary Analysis - Abuse Survivor Percentage (Bar)
+        </h2>
+        <div className="w-full max-md:h-[54vh] h-full">
+          <Bar data={chartData} options={options} />
+        </div>
       </div>
-
       {/* Domestic Violence Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-gray-700">Salary Analysis - Domestic Violence Survivor Percentage (Bar)</h2>
-        <Bar data={DomesticChartData} options={DomesticOptions} />
+        <h2 className="text-xl font-bold text-center mb-4 text-[#e8461e]">
+          Salary Analysis - Domestic Violence Survivor Percentage (Bar)
+        </h2>
+        <div className="w-full max-md:h-[54vh] h-full">
+          <Bar data={DomesticChartData} options={DomesticOptions} />
+        </div>
       </div>
     </div>
   );

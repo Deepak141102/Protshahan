@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import CounterSection from "./CounterSection";
-import DataChart2 from "./DoughnutPie";
+import DataChart2 from "./DataChart2";
 import DataChart1 from "./LineBar";
 import IndiaMap from "./IndiaMap";
 import occupationsData from "./Data.json";
@@ -26,19 +26,19 @@ const Rights = () => {
 
   // Data for the chart
   const data = {
-    labels: ['4-9 Years', '10-19 Years', '20-29 Years'],
+    labels: ["4-9 Years", "10-19 Years", "20-29 Years"],
     datasets: [
       {
-        label: 'Age Group Distribution',
+        label: "Age Group Distribution",
         data: [fourToNine.count, tenToNineteen.count, twentyToTwentyNine.count], // Use the 'count' values
         backgroundColor: ["#3c3950", "#ce441a", "#919191"], // Colors for each section
-
       },
     ],
   };
 
   const ageOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -55,7 +55,8 @@ const Rights = () => {
           label: function (tooltipItem) {
             const currentValue = tooltipItem.raw;
             // Ensure the total value is valid before dividing
-            const percentage = total > 0 ? ((currentValue / total) * 100).toFixed(2) : 0;
+            const percentage =
+              total > 0 ? ((currentValue / total) * 100).toFixed(2) : 0;
             return `${currentValue} people (${percentage}%) from the total ${total} people`;
           },
         },
@@ -66,7 +67,8 @@ const Rights = () => {
   const [professionData, setProfessionData] = useState(null);
 
   useEffect(() => {
-    const employmentData = occupationsData?.parent_profession?.employment_data || [];
+    const employmentData =
+      occupationsData?.parent_profession?.employment_data || [];
     const totalCount = occupationsData?.parent_profession?.total_count || 1;
 
     const flattenedData = employmentData.flatMap((item) => {
@@ -108,6 +110,7 @@ const Rights = () => {
 
   const professionOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -124,7 +127,11 @@ const Rights = () => {
           label: function (tooltipItem) {
             const index = tooltipItem.dataIndex;
             const percentage = professionData.datasets[0].data[index];
-            return `${tooltipItem.dataset.label}: ${percentage.toFixed(2)}% from the total [${occupationsData.parent_profession.total_count}]`;
+            return `${tooltipItem.dataset.label}: ${percentage.toFixed(
+              2
+            )}% from the total [${
+              occupationsData.parent_profession.total_count
+            }]`;
           },
         },
       },
@@ -148,7 +155,9 @@ const Rights = () => {
               </div>
               <div className="flex flex-wrap justify-center">
                 <p className="text-white text-center">
-                  <span className="text-[#e8461e] mr-2">Potential Consumers:</span>
+                  <span className="text-[#e8461e] mr-2">
+                    Potential Consumers:
+                  </span>
                   Protsahan Executive Team | Governmental Bodies
                 </p>
               </div>
@@ -162,42 +171,35 @@ const Rights = () => {
               </p>
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow-lg">
-            <CounterSection />
-            <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 py-10 bg-[#dcdcdc] px-4">
-              <div className="flex flex-col w-full md:w-[45%]">
-                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full justify-between">
-                  <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-[#212331]">
-                    Age: 4-29 Years Boys & Girls
-                  </h2>
-                  <div className="flex justify-center items-center w-full h-[60vh]">
-                    <Doughnut data={data} options={ageOptions} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col w-full md:w-[45%]">
-                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full justify-between">
-                  <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-[#212331]">
-                    Occupation of the Guardians / Family
-                  </h2>
-                  <div className="flex justify-center items-center w-full h-[60vh]">
-                    {professionData && (
-                      <Pie data={professionData} options={professionOptions} />
-                    )}
-                  </div>
-                </div>
+          <CounterSection />
+          <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
+            <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+              <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-[#212331]">
+                Age: 4-29 Years Boys & Girls
+              </h2>
+              <div className="w-full max-md:h-[54vh] h-full">
+                <Doughnut data={data} options={ageOptions} />
               </div>
             </div>
-            <IndiaMap />
-            <DataChart1 />
-            <DataChart2 />
-            <HomeVisitsPieChart/>
-            <ServiverChart/>
-            <LostChart/>
-            <GovtLinkage />
+
+            <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+              <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-[#212331]">
+                Occupation of the Guardians / Family
+              </h2>
+              <div className="w-full max-md:h-[54vh] h-full">
+                {professionData && (
+                  <Pie data={professionData} options={professionOptions} />
+                )}
+              </div>
+            </div>
           </div>
         </div>
+        <IndiaMap />
+        <DataChart2 />
+        <HomeVisitsPieChart />
+        <ServiverChart />
+        <LostChart />
+        <GovtLinkage />
       </div>
     </div>
   );

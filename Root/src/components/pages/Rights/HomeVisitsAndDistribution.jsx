@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Pie, Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import JsonData from '../Art/beat.json';
+import React, { useState, useEffect } from "react";
+import { Pie, Bar } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import JsonData from "../Art/beat.json";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,21 +15,21 @@ const HomeVisitsPieChart = () => {
       notConducted: JsonData.home_visits.home_visit_not_conducted_count,
     };
     setChartData({
-      labels: ['Conducted', 'Not Conducted'],
+      labels: ["Conducted", "Not Conducted"],
       datasets: [
         {
-          label: 'Home Visits',
+          label: "Home Visits",
           data: [homeVisitsData.conducted, homeVisitsData.notConducted],
           backgroundColor: [
             "rgb(224, 70, 31)", // Color 1
             "rgb(101, 25, 11)", // Color 2
           ],
-          borderColor: 'rgba(255, 255, 255, 1)',
+          borderColor: "rgba(255, 255, 255, 1)",
           borderWidth: 2,
         },
       ],
     });
-// fmd
+
     const membersDistribution = JsonData.family_members.members_distribution;
     const labels = membersDistribution.map((item) => item.range);
     const data = membersDistribution.map((item) => item.percentage_of_total);
@@ -44,7 +44,7 @@ const HomeVisitsPieChart = () => {
             "rgb(101, 25, 11)", // Color 2
             "rgb(134, 37, 15)", // Color 3
             "#121331", // Color 4
-            "gray"
+            "gray",
           ],
           borderColor: [
             "rgb(224, 70, 31)", // Color 1
@@ -61,9 +61,10 @@ const HomeVisitsPieChart = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top',
+        position: "top",
         labels: {
           boxWidth: 15,
           padding: 10, // Reduced padding
@@ -85,6 +86,7 @@ const HomeVisitsPieChart = () => {
 
   const memberOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -102,12 +104,27 @@ const HomeVisitsPieChart = () => {
         title: {
           display: true,
           text: "Family Members Range",
+          color:"#e8461e",
+          font:{
+            size:16,
+            weight: "bold",
+
+          }
+        },
+        ticks: {
+          maxRotation: 0, // Keep the labels horizontal
         },
       },
       y: {
         title: {
           display: true,
           text: "Percentage of Total (%)",
+          color:"#e8461e",
+          font:{
+            size:16,
+            weight: "bold",
+
+          }
         },
         beginAtZero: true,
         max: 100,
@@ -116,21 +133,23 @@ const HomeVisitsPieChart = () => {
   };
 
   return (
-    <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc] max-md:flex-col">
+    <div className="flex justify-center items-center gap-6 p-5 bg-[#dcdcdc] max-md:flex-col">
       {/* Home Visits Pie Chart */}
-      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
         <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
           Home Visits Pie Chart
         </h2>
-          {chartData && <Pie data={chartData} options={options} />}
+        {chartData && <Pie data={chartData} options={options} />}
       </div>
 
       {/* Family Members Bar Chart */}
-      <div className="w-full md:w-1/2 h-[75vh] max-md:h-[50vh] bg-white p-3 flex justify-center items-center flex-col shadow-md rounded-lg">
-      <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+        <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
           Family Members Distribution
         </h2>
+        <div className="w-full h-full flex justify-center">
           {memberData && <Bar data={memberData} options={memberOptions} />}
+        </div>
       </div>
     </div>
   );

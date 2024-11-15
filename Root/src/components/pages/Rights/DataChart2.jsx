@@ -38,6 +38,7 @@ const DataChart2 = () => {
 
   const incomeOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -153,17 +154,17 @@ const DataChart2 = () => {
   return (
     <div className="flex justify-center items-center gap-4 p-3 max-md:flex-col bg-[#dcdcdc]">
       {/* Doughnut Chart Section */}
-      <div className="w-[45%] max-md:w-full h-[80vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
         <h2 className="text-2xl font-bold text-[#212331] mb-4 text-center">
           Monthly Income Doughnut Chart
         </h2>
-        <div ref={dropdownRefDoughnut} className="w-[78%] max-md:w-full">
+        <div className="w-full max-md:h-[54vh] h-full">
           {incomeData && <Doughnut data={incomeData} options={incomeOptions} />}
         </div>
       </div>
 
       {/* Gender Chart Section */}
-      <div className="w-[45%] max-md:w-full h-[80vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
         <h2 className="text-2xl font-bold text-[#212331] mb-4 text-center">
           Number of Scholarships Disbursed by Gender
         </h2>

@@ -3,6 +3,7 @@ import FamilyMembersChart from "./Chart1";
 import ParentProfessionChart from "./Chart3";
 import PersonConditionsHorizontalBarChart from "./PersonConditionChart";
 import StateMap from "./StateMap";
+import Rented from "./Rented";
 
 const ArtPage = () => {
   return (
@@ -48,6 +49,7 @@ const ArtPage = () => {
             </div>
           </div>
         </div>
+        <Rented/>
       </div>
     </>
   );

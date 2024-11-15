@@ -35,7 +35,11 @@ const IssuesChart = () => {
       {
         label: "First Generation Learner Percentage (%)",
         data: firstGenPercentage,
-        backgroundColor: "#4A5568",
+        backgroundColor: [
+          "rgb(224, 70, 31)",
+          "rgb(101, 25, 11)",
+          "rgb(134, 37, 15)",
+        ],
         borderColor: "#2D3748",
         borderWidth: 1,
       },
@@ -50,10 +54,9 @@ const IssuesChart = () => {
       },
       title: {
         display: true,
-        text: "Percentage of First Generation Learners by Salary",
         color: "#2D3748",
         font: {
-          size: 16,
+          size: 14,
         },
       },
       tooltip: {
@@ -70,11 +73,27 @@ const IssuesChart = () => {
     },
     scales: {
       x: {
+        title: {
+          display: true,
+          text: "Salary", // x-axis label
+          color: "#e8461e", // color of the label
+          font: {
+            size: 14, // size of the label text
+          },
+        },
         ticks: {
           color: "#2D3748",
         },
       },
       y: {
+        title: {
+          display: true,
+          text: "Percentage (%)", // y-axis label
+          color: "#e8461e", // color of the label
+          font: {
+            size: 14, // size of the label text
+          },
+        },
         ticks: {
           color: "#2D3748",
         },
@@ -94,7 +113,10 @@ const IssuesChart = () => {
         {
           label: "Applicants Count",
           data: applicantsData.map((item) => item.percentage_of_total),
-          backgroundColor: ["rgba(54, 162, 235, 0.6)", "rgba(75, 192, 192, 0.6)"],
+          backgroundColor: [
+            "rgb(224, 70, 31)",
+            "rgb(101, 25, 11)",
+          ],
           borderColor: "rgba(255, 255, 255, 1)",
           borderWidth: 2,
         },
@@ -107,7 +129,10 @@ const IssuesChart = () => {
     plugins: {
       title: {
         display: true,
-        text: "Community or GEC Applicants",
+        color: "#e8461e",
+        font: {
+          size: 14,
+        },
       },
       legend: {
         display: false,
@@ -122,19 +147,48 @@ const IssuesChart = () => {
         },
       },
     },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Applicant Type", // x-axis label
+          color: "#e8461e", // color of the label
+          font: {
+            size: 14, // size of the label text
+          },
+        },
+        ticks: {
+          color: "#2D3748",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Applicants Percentage (%)", // y-axis label
+          color: "#e8461e", // color of the label
+          font: {
+            size: 14, // size of the label text
+          },
+        },
+        ticks: {
+          color: "#2D3748",
+        },
+        beginAtZero: true,
+      },
+    },
   };
 
   return (
     <>
       <div className="flex justify-center items-center gap-4 p-3 max-md:flex-col">
         <div className="w-1/2  max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
-          <h2 className="font-lato text-xs text-[#333] mb-5 text-center">
+          <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
             Salary Analysis - First Generation Learner Percentage
           </h2>
           <Bar data={chartData} options={options} />
         </div>
         <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
-          <h2 className="font-lato text-xs text-[#333] mb-5 text-center">
+          <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
             Community or GEC Bar Chart
           </h2>
           {communityChartData && <Bar data={communityChartData} options={CommunityOptions} />}
