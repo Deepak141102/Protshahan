@@ -5,27 +5,25 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      // Ensure that chart.js is correctly aliased if necessary (useful for module resolution)
-      'chart.js': 'chart.js/dist/chart.min.js', // Make sure the correct path is used
-      // You can also add custom aliases for other modules if needed
+      'chart.js': 'chart.js/dist/chart.min.js',  // Explicitly point to the minified version
     },
   },
   build: {
-    chunkSizeWarningLimit: 1500, // Increase the chunk size limit for warnings
+    chunkSizeWarningLimit: 1500,  // Increase the chunk size limit for warnings
     rollupOptions: {
       external: [
-        '@fortawesome/fontawesome-svg-core', // Externalize FontAwesome if you don't want it bundled
-        'chart.js', // Externalize Chart.js if you don't want it bundled
+        '@fortawesome/fontawesome-svg-core',  // Externalize FontAwesome
+        'chart.js',  // Externalize Chart.js if necessary
       ],
       output: {
         manualChunks(id) {
           // Split large dependencies into separate chunks
           if (id.includes('node_modules')) {
             if (id.includes('chart.js')) {
-              return 'chartjs'; // Separate Chart.js into its own chunk
+              return 'chartjs';  // Separate Chart.js into its own chunk
             }
             if (id.includes('@fortawesome')) {
-              return 'fontawesome'; // Separate FontAwesome into its own chunk
+              return 'fontawesome';  // Separate FontAwesome into its own chunk
             }
           }
         },
@@ -34,11 +32,7 @@ export default defineConfig({
   },
   server: {
     fs: {
-      strict: false, // Allow serving files from outside the root directory (for static assets like SVG)
-    },
-    proxy: {
-      // If you're having any issues with API requests or needing proxy support, you can add proxy config here
-      // '/api': 'http://localhost:5000', // Example of proxying API calls
+      strict: false,  // Allow serving files from outside the root directory (for static assets like SVG)
     },
   },
 });
