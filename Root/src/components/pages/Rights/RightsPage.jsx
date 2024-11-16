@@ -10,7 +10,6 @@ import GovtLinkage from "../Education/Category";
 import HomeVisitsPieChart from "./HomeVisitsAndDistribution";
 import ServiverChart from "./IssuesChart1";
 import LostChart from "./IssuesChart2";
-import TechBarChart2 from "../Technology/TechBarChart2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -201,7 +200,6 @@ const Rights = () => {
         <ServiverChart />
         <LostChart />
         <GovtLinkage />
-        <TechBarChart2/>
       </div>
     </div>
   );
