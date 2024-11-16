@@ -150,7 +150,6 @@ const LostChart = () => {
   // Render Charts
   return (
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
-      {" "}
       {/* Rented People Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
         <h2 className="text-xl font-bold text-center mb-4 text-gray-700">

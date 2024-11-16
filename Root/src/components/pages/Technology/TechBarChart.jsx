@@ -7,7 +7,7 @@ import chartData from './Barchart.json'; // Import your JSON data
 // Register necessary components from Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarChart = () => {
+const TechBarChart = () => {
   const [data, setData] = useState(null);
 
   // Array of colors to be used for the bars
@@ -100,4 +100,4 @@ const BarChart = () => {
   );
 };
 
-export default BarChart;
+export default TechBarChart;
