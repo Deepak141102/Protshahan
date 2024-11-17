@@ -51,9 +51,7 @@ const ChartComponent = () => {
         data: selectedYearData
           ? selectedYearData.map((item) => item.grand_total)
           : [],
-        backgroundColor: "rgba(153, 102, 255, 0.6)",
-        borderColor: "rgba(153, 102, 255, 1)",
-        borderWidth: 1,
+        backgroundColor: "#e0461f",
       },
     ],
   };
@@ -71,7 +69,7 @@ const ChartComponent = () => {
             </button>
           )}
         </div>
-        <h1 className="text-2xl font-bold text-[#212331] text-center mb-4">
+        <h1 className="text-2xl font-semibold text-[#212331] text-center mb-4">
           Interactive Data Visualization
         </h1>
         <div className="chart-wrapper">

@@ -191,7 +191,7 @@ const IssuesChart = () => {
       <div className="flex  justify-center items-center gap-6  bg-[#dcdcdc]  max-md:flex-col">
         <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
           <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
-            Salary Analysis - First Generation Learner Percentage
+            First-Generation Learners: Salary Analysis Overview{" "}
           </h2>
           <div className="w-full max-md:h-[54vh] h-full">
             <Bar data={chartData} options={options} />

@@ -193,7 +193,7 @@ const ServiverChart = () => {
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
       {/* Abuse Survivor Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
+        <h2 className="text-xl font-semibold text-center mb-4 text-[#121331]">
           Abuse Survivor Percentage Relative to Salary
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">
@@ -202,7 +202,7 @@ const ServiverChart = () => {
       </div>
       {/* Domestic Violence Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
+        <h2 className="text-xl font-semibold text-center mb-4 text-[#121331]">
           Domestic Violence Survivor Percentage Relative to Salary
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">

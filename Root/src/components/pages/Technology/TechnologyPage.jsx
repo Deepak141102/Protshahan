@@ -233,7 +233,7 @@ const CombinedBarChart = () => {
               </div>
             </div>
             <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-              <h2 className="text-xl font-bold text-center mb-4 text-[#e8461e]">
+              <h2 className="text-xl font-semibold text-center mb-4 text-[#e8461e]">
                 What skills do you possess among these?
               </h2>
 

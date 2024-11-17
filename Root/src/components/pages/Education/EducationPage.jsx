@@ -198,8 +198,8 @@ const Education = () => {
                 className={`transition-transform duration-700 ease-in-out transform ${showMonthlyChart ? "-translate-x-[45rem]" : "translate-x-0"
                   }`}
               >
-                <h2 className="text-xl font-bold text-center mb-4 text-[#212331]">
-                  Number of Lectures (Yearly)
+                <h2 className="text-xl font-semibold text-center mb-4 text-[#212331]">
+                  Number of Lectures Conducted by us(Yearly)
                 </h2>
 
                 {/* Set responsive height for the chart container */}
@@ -264,7 +264,7 @@ const Education = () => {
                   </div>
 
                   <h2 className="text-xl font-bold text-center mb-4 text-[#212331]">
-                    Number of Lectures in {selectedYearData.year} (Monthly)
+                    Number of Lectures in Conducted by us {selectedYearData.year} (Monthly)
                   </h2>
                   {/* Set responsive height for the monthly chart container */}
                   <div className="h-[60vh] max-md:h-[68vh] pb-14">
@@ -323,8 +323,7 @@ const Education = () => {
 
               {/* Conditionally render the heading only if selectedSubject is not set */}
               <h2 className="text-xl font-bold text-center mb-4 text-[#212331]">
-                Number of Students Passed Out
-              </h2>
+              Student Success Rates with Our Guidance              </h2>
 
               {/* Set responsive height for the student chart container */}
               <div className="h-[55.5vh] max-md:h-[66vh]">

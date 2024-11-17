@@ -151,7 +151,7 @@ const DataChart2 = () => {
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
       {/* Doughnut Chart Section */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-      <h2 className="text-xl font-bold text-[#121331] mb-4 text-center">
+      <h2 className="text-xl font-semibold text-[#121331] mb-4 text-center">
           Monthly Income Doughnut Chart
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">
@@ -161,7 +161,7 @@ const DataChart2 = () => {
 
       {/* Gender Chart Section */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-[#121331] mb-4 text-center">
+        <h2 className="text-xl font-semibold text-[#121331] mb-4 text-center">
           Number of Scholarships Disbursed by Gender
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">

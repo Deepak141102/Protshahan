@@ -202,13 +202,13 @@ const PersonConditionsLineChart = () => {
   return (
     <div className="flex justify-center items-center gap-4 p-3 max-md:flex-col">
       <div className="w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
-        <h2 className="font-lato text-xs text-[#333] mb-5 text-center">
+        <h2 className="font-lato text-xl font-semibold text-[#333] mb-5 text-center">
           Person Conditions Line Chart
         </h2>
         {conditionData && <Line data={conditionData} options={conditionOptions} />}
       </div>
       <div className="w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
-        <h2 className="font-lato text-xs text-[#333] mb-5 text-center">
+        <h2 className="font-lato text-xl font-semibold text-[#333] mb-5 text-center">
           Support Request Doughnut Chart
         </h2>
         {supportRequestData && (
@@ -216,7 +216,7 @@ const PersonConditionsLineChart = () => {
         )}
       </div>
       <div className="w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-xl rounded-xl">
-        <h2 className="font-lato text-xs text-[#333] mb-5 text-center">
+        <h2 className="font-lato text-xl font-semibold text-[#333] mb-5 text-center">
           Age Group Total Counts Bar Chart
         </h2>
         {ageData && <Bar data={ageData} options={ageOptions} />}

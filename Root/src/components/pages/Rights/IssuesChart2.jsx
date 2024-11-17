@@ -152,7 +152,7 @@ const LostChart = () => {
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
       {/* Rented People Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
+        <h2 className="text-xl font-semibold text-center mb-4 text-[#121331]">
           Rented People Count
         </h2>
         {Object.keys(chartData).length ? (
@@ -167,7 +167,7 @@ const LostChart = () => {
       {/* Lost Parent Doughnut Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
         
-        <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
+        <h2 className="text-xl font-semibold text-center mb-4 text-[#121331]">
           Salary Analysis - Lost A Parent Percentage
         </h2>
         {lostParentData.length ? (
