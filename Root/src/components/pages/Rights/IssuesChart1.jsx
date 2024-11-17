@@ -93,7 +93,7 @@ const ServiverChart = () => {
           color: "#e8461e",
         },
       },
-      x:{
+      x: {
         title: {
           display: true,
           text: "Salary",
@@ -103,7 +103,7 @@ const ServiverChart = () => {
           },
           color: "#e8461e",
         },
-      }
+      },
     },
   };
 
@@ -139,7 +139,6 @@ const ServiverChart = () => {
     plugins: {
       legend: {
         display: false,
-        
       },
       title: {
         display: true,
@@ -176,7 +175,7 @@ const ServiverChart = () => {
           color: "#e8461e",
         },
       },
-      x:{
+      x: {
         title: {
           display: true,
           text: "Salary",
@@ -186,7 +185,7 @@ const ServiverChart = () => {
           },
           color: "#e8461e",
         },
-      }
+      },
     },
   };
 
@@ -194,8 +193,8 @@ const ServiverChart = () => {
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
       {/* Abuse Survivor Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-[#e8461e]">
-          Salary Analysis - Abuse Survivor Percentage (Bar)
+        <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
+          Abuse Survivor Percentage Relative to Salary
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">
           <Bar data={chartData} options={options} />
@@ -203,8 +202,8 @@ const ServiverChart = () => {
       </div>
       {/* Domestic Violence Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-bold text-center mb-4 text-[#e8461e]">
-          Salary Analysis - Domestic Violence Survivor Percentage (Bar)
+        <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
+          Domestic Violence Survivor Percentage Relative to Salary
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">
           <Bar data={DomesticChartData} options={DomesticOptions} />

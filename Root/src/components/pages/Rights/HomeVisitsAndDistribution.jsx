@@ -104,30 +104,33 @@ const HomeVisitsPieChart = () => {
         title: {
           display: true,
           text: "Family Members Range",
-          color:"#e8461e",
-          font:{
-            size:16,
+          color: "#e8461e",
+          font: {
+            size: 13,
             weight: "bold",
-
-          }
+          },
         },
         ticks: {
           maxRotation: 0, // Keep the labels horizontal
         },
       },
       y: {
+        
         title: {
           display: true,
           text: "Percentage of Total (%)",
-          color:"#e8461e",
-          font:{
-            size:16,
+          color: "#e8461e",
+          font: {
+            size: 13,
             weight: "bold",
-
-          }
+          },
         },
         beginAtZero: true,
-        max: 100,
+        min: 0,
+        max: 65,
+        ticks: {
+          stepSize: 5, // Set increment to 5
+        },
       },
     },
   };
@@ -136,19 +139,18 @@ const HomeVisitsPieChart = () => {
     <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
       {/* Home Visits Pie Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
-          Home Visits Pie Chart
+        <h2 className="font-lato text-xl text-[#121331] mb-3 text-center">
+          Home Visits Conducted by us
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">
-
-        {chartData && <Pie data={chartData} options={options} />}
+          {chartData && <Pie data={chartData} options={options} />}
         </div>
       </div>
 
       {/* Family Members Bar Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="font-lato text-xs text-[#333] mb-3 text-center">
-          Family Members Distribution
+        <h2 className="font-lato text-xl text-[#121331] mb-3 text-center">
+          Age-Based Population Distribution
         </h2>
         <div className="w-full max-md:h-[54vh] h-full">
           {memberData && <Bar data={memberData} options={memberOptions} />}

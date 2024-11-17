@@ -74,7 +74,7 @@ const StateMap = () => {
                 return (
                   <div className="tooltip flex max-md:w-screen">
                     <div className="inline">
-                      {message}{" "}
+                      {message}
                       <div className="tooltip-header inline">{stateName}</div>
                     </div>
                   </div>

@@ -196,7 +196,6 @@ const hideTooltip = () => {
     animation: "tooltip-glow 1.5s infinite alternate, tooltip-slide 0.3s ease-out",
   }}
 />
-  Tooltip Text
 </div>
 
 <style jsx>{`

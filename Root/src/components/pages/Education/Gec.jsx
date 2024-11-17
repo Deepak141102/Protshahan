@@ -75,7 +75,7 @@ const IssuesChart = () => {
             const salary = firstGenerationLearners[index]?.Salary;
             const total = firstGenerationLearners[index]?.total_attended;
             const percentage = firstGenPercentage[index];
-            return `${salary}: ${percentage}% (${total} responses) from the total ${totalRespondents}`;
+            return `${salary}: ${percentage}% (${total} responses) from the total 87`;
           },
         },
       },

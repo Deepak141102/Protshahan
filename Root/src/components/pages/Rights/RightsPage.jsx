@@ -94,6 +94,7 @@ const Rights = () => {
       datasets: [
         {
           label: "Profession Percentage",
+          color:"#e8461e",
           data: filteredData.map((item) => item.percentage),
           backgroundColor: [
             "rgb(224, 70, 31)",
@@ -174,7 +175,7 @@ const Rights = () => {
           <CounterSection />
           <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
             <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-              <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-[#212331]">
+              <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
                 Age: 4-29 Years Boys & Girls
               </h2>
               <div className="w-full max-md:h-[54vh] h-full">
@@ -183,7 +184,7 @@ const Rights = () => {
             </div>
 
             <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-              <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-[#212331]">
+              <h2 className="text-xl font-bold text-center mb-4 text-[#121331]">
                 Occupation of the Guardians / Family
               </h2>
               <div className="w-full max-md:h-[54vh] h-full">

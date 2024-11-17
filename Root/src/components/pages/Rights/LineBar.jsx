@@ -138,7 +138,7 @@ const ScholarshipLineChart = () => {
     <>
       <div className="flex justify-center items-center gap-4 p-3 max-md:flex-col bg-[#dcdcdc] py-4">
         <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-          <h2 className="font-lato text-2xl text-[#333] mb-5 text-center">
+          <h2 className="font-lato text-xl text-[#121331] mb-5 text-center">
             Scholarship Categories Distribution
           </h2>
           <div className="w-full max-md:h-[54vh] h-full">
@@ -148,7 +148,7 @@ const ScholarshipLineChart = () => {
 
         {/* Support Request Doughnut Chart */}
         <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-          <h2 className="font-lato text-2xl text-[#333] mb-5 text-center pt-3">
+          <h2 className="font-lato text-xl text-[#121331] mb-5 text-center pt-3">
             Support Request Doughnut Chart
           </h2>
           <div className="w-full max-md:h-[54vh] h-full">
