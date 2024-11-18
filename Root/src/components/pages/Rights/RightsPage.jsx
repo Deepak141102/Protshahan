@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import CounterSection from "./CounterSection";
-import DataChart2 from "./DataChart2";
-import DataChart1 from "./LineBar";
+import DataChart2 from "./DataChart3";
 import IndiaMap from "./IndiaMap";
-import occupationsData from "./Data.json";
-import GovtLinkage from "../Education/Category";
-import HomeVisitsPieChart from "./HomeVisitsAndDistribution";
-import ServiverChart from "./IssuesChart1";
-import LostChart from "./IssuesChart2";
+import occupationsData from "../json/rights/Data.json";
+// import GovtLinkage from "../Education/DataChart2";
+import HomeVisitsPieChart from "./DataChart4";
+import ServiverChart from "./DataChart5";
+import LostChart from "./DataChart6";
+import ScholarChart from "./DataChart2";
+import DataChart7 from "./DataChart7";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -196,11 +197,13 @@ const Rights = () => {
           </div>
         </div>
         <IndiaMap />
+        <ScholarChart/>
         <DataChart2 />
         <HomeVisitsPieChart />
         <ServiverChart />
         <LostChart />
-        <GovtLinkage />
+        <DataChart7 />
+
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import DatamapsIndia from "react-datamaps-india";
-import placeData from "./Data.json"; 
+import placeData from "../json/rights/Data.json"; 
 import "./rightsPage.css";
 
 const StateMap = () => {

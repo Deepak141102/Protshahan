@@ -13,17 +13,17 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale);
 
 // Importing data
-import dataJson from "../Art/beat.json"; // Replace with the correct path
-import IncomeIssuesJson from "../Technology/Issues.json"; // Replace with the correct path
+// import dataJson from "../json/beat.json"; // Replace with the correct path
+import IncomeIssuesJson from "../json/rights/Data.json"; // Replace with the correct path
 
-const LostChart = () => {
+const DataChart6 = () => {
   // Lost Parent Chart Data Processing
-  const lostParentData = Array.isArray(IncomeIssuesJson?.Has_Lost_Parent)
-    ? IncomeIssuesJson.Has_Lost_Parent
+  const lostParentData = Array.isArray(IncomeIssuesJson?.has_lost_parent)
+    ? IncomeIssuesJson.has_lost_parent
     : [];
 
   const lostParentPercentage = lostParentData.map((item) => {
-    const lostParentCount = item?.Has_Lost_A_Parent || 0;
+    const lostParentCount = item?.has_lost_a_parent || 0;
     const totalAttended = item?.total_attended || 1; // Avoid division by zero
     return ((lostParentCount / totalAttended) * 100).toFixed(2);
   });
@@ -73,14 +73,13 @@ const LostChart = () => {
         },
       },
     },
-   
   };
 
   // Rented Chart Data Processing
   const [chartData, setChartData] = useState({});
 
   useEffect(() => {
-    const rentedData = dataJson?.rented_people;
+    const rentedData = IncomeIssuesJson?.rented_people;
 
     if (rentedData) {
       const chartData = {
@@ -107,12 +106,17 @@ const LostChart = () => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      legend: {
+        display: false,
+      },
+
       tooltip: {
         callbacks: {
           label: function (tooltipItem) {
             const dataIndex = tooltipItem.dataIndex; // Index of the hovered bar
             const label = tooltipItem.label; // Label ("Yes" or "No")
-            const percentage = dataJson.rented_people[label]?.percentage || 0; // Get percentage from the JSON
+            const percentage =
+              IncomeIssuesJson.rented_people[label]?.percentage || 0; // Get percentage from the JSON
             const count = tooltipItem.raw; // Get the count value
             return `Percentage: ${percentage}%, Count: ${count}`;
           },
@@ -122,7 +126,7 @@ const LostChart = () => {
     scales: {
       y: {
         beginAtZero: false,
-        
+
         title: {
           display: true,
           text: "Percentage of People (%)",
@@ -133,7 +137,7 @@ const LostChart = () => {
           color: "#e8461e",
         },
       },
-      x:{
+      x: {
         title: {
           display: true,
           text: "Responses",
@@ -143,7 +147,7 @@ const LostChart = () => {
           },
           color: "#e8461e",
         },
-      }
+      },
     },
   };
 
@@ -156,9 +160,8 @@ const LostChart = () => {
           Rented People Count
         </h2>
         {Object.keys(chartData).length ? (
-        <div className="w-full max-md:h-[54vh] h-full">
-
-          <Bar data={chartData} options={options} />
+          <div className="w-full max-md:h-[54vh] h-full">
+            <Bar data={chartData} options={options} />
           </div>
         ) : (
           <p>No data available for rented people.</p>
@@ -166,14 +169,12 @@ const LostChart = () => {
       </div>
       {/* Lost Parent Doughnut Chart */}
       <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        
         <h2 className="text-xl font-semibold text-center mb-4 text-[#121331]">
           Salary Analysis - Lost A Parent Percentage
         </h2>
         {lostParentData.length ? (
-        <div className="w-full max-md:h-[54vh] h-full">
-
-          <Doughnut data={lostParentChartData} options={lostParentOptions} />
+          <div className="w-full max-md:h-[54vh] h-full">
+            <Doughnut data={lostParentChartData} options={lostParentOptions} />
           </div>
         ) : (
           <p>No data available for lost parent chart.</p>
@@ -183,4 +184,4 @@ const LostChart = () => {
   );
 };
 
-export default LostChart;
+export default DataChart6;

@@ -10,11 +10,10 @@ import {
   Legend,
 } from "chart.js";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import yearlyData from "./YearlyMonthlyData.json"; // Yearly data
-import studentData from "./StudentPassOut.json"; // Student pass out data
-import DomesticViolenceDoughnutChart from "./Gec";
-
-
+import yearlyData from "../json/education/YearlyMonthlyData.json"; // Yearly data
+import studentData from "../json/education/StudentPassOut.json"; // Student pass out data
+import EduChart from "./DataChart";
+// import EduChart2 from "./DataChart2";
 
 // Register ChartJS components
 ChartJS.register(
@@ -26,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-const Education = () => {
+const EducationPage = () => {
   const [selectedYearData, setSelectedYearData] = useState(null);
   const [showMonthlyChart, setShowMonthlyChart] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -54,9 +53,7 @@ const Education = () => {
         {
           label: `Monthly Data for ${selectedYearData.year}`,
           data: Object.values(selectedYearData.monthWise),
-          backgroundColor: "rgba(153, 102, 255, 0.6)",
-          borderColor: "rgba(153, 102, 255, 1)",
-          borderWidth: 1,
+          backgroundColor: "#df6b4f",
         },
       ],
     }
@@ -241,7 +238,7 @@ const Education = () => {
                   />
                 </div>
 
-                <p className="text-[#e8461e] text-center mt-2 font-bold text-[20px]">
+                <p className="text-[#e8461e] text-center mt-2 font-bold text-[18px]">
                   Click on a bar to view monthly data!
                 </p>
               </div>
@@ -358,13 +355,13 @@ const Education = () => {
                 />
               </div>
               {!selectedSubject && (
-                <h2 className="text-[#e8461e] text-center mt-2 font-bold text-[20px]">
+                <h2 className="text-[#e8461e] text-center mt-2 font-bold text-[18px]">
                   Click on a bar to view passed students data!
                 </h2>
               )}
             </div>
             </div>
-<DomesticViolenceDoughnutChart/>
+<EduChart/>
           </div>
 
           
@@ -374,4 +371,4 @@ const Education = () => {
   );
 };
 
-export default Education;
+export default EducationPage;

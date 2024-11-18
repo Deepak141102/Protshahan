@@ -11,8 +11,8 @@ import {
 } from "chart.js";
 
 // Importing the JSON files directly
-import jsonData from "./Barchart2.json";
-import chartData from "./Barchart.json";
+import jsonData from "../json/technology/Barchart2.json";
+import chartData from "../json/technology/Barchart.json";
 
 // Register Chart.js components
 ChartJS.register(
@@ -37,8 +37,9 @@ const CombinedBarChart = () => {
   const [firstChartOptions, setFirstChartOptions] = useState(null); // <-- Define this here
 
   useEffect(() => {
-    const labels = Object.keys(chartData);
-    const counts = labels.map((label) => chartData[label].count);
+    const incomeData = chartData.income;
+    const labels = Object.keys(incomeData);
+    const counts = labels.map((label) => incomeData[label].count);
 
     // Calculate the total count of people
     const totalPeople = counts.reduce((sum, count) => sum + count, 0);
@@ -75,9 +76,13 @@ const CombinedBarChart = () => {
         tooltip: {
           callbacks: {
             label: function (tooltipItem) {
-              const count = tooltipItem.dataset.countData[tooltipItem.dataIndex];
+              const count =
+                tooltipItem.dataset.countData[tooltipItem.dataIndex];
               const percentage = tooltipItem.raw.toFixed(2);
-              const totalPeople = tooltipItem.dataset.countData.reduce((sum, val) => sum + val, 0);
+              const totalPeople = tooltipItem.dataset.countData.reduce(
+                (sum, val) => sum + val,
+                0
+              );
               return `Count: ${count}, Percentage: ${percentage}% From Total ${totalPeople}`;
             },
           },
@@ -85,13 +90,23 @@ const CombinedBarChart = () => {
       },
       scales: {
         x: {
-          title: { display: true, text: "Amount Range", color: "#e8461e", font: { size: 13, weight: "bold" } },
+          title: {
+            display: true,
+            text: "Amount Range",
+            color: "#e8461e",
+            font: { size: 13, weight: "bold" },
+          },
         },
         y: {
-          title: { display: true, text: "Percentage Of People", color: "#e8461e", font: { size: 13, weight: "bold" } },
+          title: {
+            display: true,
+            text: "Percentage Of People",
+            color: "#e8461e",
+            font: { size: 13, weight: "bold" },
+          },
           beginAtZero: true,
-          min:0,
-          max:50,
+          min: 0,
+          max: 50,
           ticks: { stepSize: 10 },
         },
       },
@@ -102,17 +117,23 @@ const CombinedBarChart = () => {
   const [secondChartData, setSecondChartData] = useState(null);
 
   useEffect(() => {
+    const skillData = jsonData.skills;
     // Transforming the imported JSON into an array of objects
-    const transformedData = Object.entries(jsonData).map(([key, value]) => ({
+    const transformedData = Object.entries(skillData).map(([key, value]) => ({
       label: key,
       value,
     }));
 
     // Calculate the total value for percentage calculation
-    const totalValue = transformedData.reduce((sum, item) => sum + item.value, 0);
+    const totalValue = transformedData.reduce(
+      (sum, item) => sum + item.value,
+      0
+    );
 
     // Calculate percentages based on the total value
-    const percentages = transformedData.map(item => (item.value / totalValue) * 100);
+    const percentages = transformedData.map(
+      (item) => (item.value / totalValue) * 100
+    );
 
     // Calculate dynamic bar colors based on the index
     const barColorArray = transformedData.map(
@@ -126,7 +147,7 @@ const CombinedBarChart = () => {
           label: "Skills Data",
           data: percentages,
           backgroundColor: barColorArray,
-          valueData: transformedData.map(item => item.value),
+          valueData: transformedData.map((item) => item.value),
         },
       ],
     });
@@ -158,9 +179,13 @@ const CombinedBarChart = () => {
         tooltip: {
           callbacks: {
             label: function (tooltipItem) {
-              const value = tooltipItem.dataset.valueData[tooltipItem.dataIndex];
+              const value =
+                tooltipItem.dataset.valueData[tooltipItem.dataIndex];
               const percentage = tooltipItem.raw.toFixed(2);
-              const totalValue = tooltipItem.dataset.valueData.reduce((sum, val) => sum + val, 0);
+              const totalValue = tooltipItem.dataset.valueData.reduce(
+                (sum, val) => sum + val,
+                0
+              );
               return `Value: ${value}, Percentage: ${percentage}% From Total ${totalValue}`;
             },
           },
@@ -183,15 +208,16 @@ const CombinedBarChart = () => {
             font: { size: 13, weight: "bold" },
           },
           beginAtZero: true,
-          min:0,
-          max:50,
+          min: 0,
+          max: 50,
           ticks: { stepSize: 10 },
         },
       },
     };
   }, [secondChartData]);
 
-  if (!firstChartData || !firstChartOptions || !secondChartData) return <div>Loading...</div>;
+  if (!firstChartData || !firstChartOptions || !secondChartData)
+    return <div>Loading...</div>;
 
   return (
     <div className="bg-[#3c3950] min-h-screen font-lato">

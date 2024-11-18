@@ -1,6 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import dataJson from "./health.json";
+import dataJson from "../json/health/health.json";
 import {
   Chart as ChartJS,
   BarElement,
@@ -45,7 +45,6 @@ const BarChart = () => {
         title: {
           display: true,
           text: "Categories",
-          color: "#e8461e",
           color: "#e8461e",
           font: {
             size: 13,

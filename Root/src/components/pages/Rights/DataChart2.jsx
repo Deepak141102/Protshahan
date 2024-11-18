@@ -1,81 +1,53 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Doughnut, Bar } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import JsonData from './Data.json';  // Import the JSON data
+import React, { useState, useEffect } from "react";
+import { Line, Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  ArcElement,
+} from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+// Register necessary components
+ChartJS.register(
+  LineElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  ArcElement
+);
+
+// Import JSON data
+import scholarshipData from "../json/rights/Data.json";
 
 const DataChart2 = () => {
-  const [incomeData, setIncomeData] = useState(null);
-  const [genderData, setGenderData] = useState({ labels: [], datasets: [] });
-  const dropdownRefDoughnut = useRef(null); // Define the ref for the dropdown
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [chartData, setChartData] = useState(null);
+  const [supportRequestData, setSupportRequestData] = useState(null);
 
-  // Prepare income distribution data
   useEffect(() => {
-    const incomeDistribution = JsonData.monthly_income.income_distribution;
-    const labels = incomeDistribution.map((item) => item.range);
-    const data = incomeDistribution.map((item) => item.percentage_of_total);
+    // Extracting labels and data from the JSON
+    const categories = Object.keys(scholarshipData.categories_of_scholarship);
+    const percentages = Object.values(
+      scholarshipData.categories_of_scholarship
+    ).map((item) => item.percentage);
 
-    setIncomeData({
-      labels: labels,
+    // Setting up data for the line chart
+    setChartData({
+      labels: categories,
       datasets: [
         {
-          label: "Income Distribution",
-          data: data,
-          backgroundColor: [
-            "rgb(224, 70, 31)", // Color 1
-            "rgb(101, 25, 11)", // Color 2
-            "rgb(134, 37, 15)", // Color 3
-            "#121331", // Color 4
-            "gray"
-          ],
-          borderWidth: 1,
-        },
-      ],
-    });
-  }, []);
-
-  const incomeOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "top",
-        labels: {
-          boxWidth: 15,
-          padding: 20,
-          usePointStyle: true,
-          color: "#e8461e",
-        },
-        onClick: null,
-      },
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return `${tooltipItem.label}: ${tooltipItem.raw}% from the total ${JsonData.monthly_income.total_entries}`;
-          },
-        },
-      },
-    },
-  };
-
-  // Prepare gender distribution data
-  useEffect(() => {
-    const labels = JsonData.gender_distribution.map(item => item.gender);
-    const data = JsonData.gender_distribution.map(item => item.percentage_of_total);
-
-    setGenderData({
-      labels: labels,
-      datasets: [
-        {
-          label: "Number of Scholarships Disbursed",
-          data: data,
-          backgroundColor: "#86250f",
-          borderWidth: 2,
-          borderRadius: 10,
-          barThickness: 55,
-          hoverBackgroundColor: "#e8461e",
+          label: "Scholarship Percentage",
+          data: percentages,
+          borderColor: "#e8461e",
+          backgroundColor: "red",
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: "#212331",
         },
       ],
     });
@@ -83,92 +55,113 @@ const DataChart2 = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
       },
       tooltip: {
         callbacks: {
-          label: (context) => `${context.raw}% from the total ${JsonData.total}`,
+          label: function (tooltipItem) {
+            return `${tooltipItem.label}: ${tooltipItem.raw}% from the total 628`;
+          },
         },
       },
     },
     scales: {
-      x: {
-        
-        ticks: {
-          color: "#3c3950",
-        },
+      y: {
+        beginAtZero: true,
         title: {
           display: true,
-          text: "Gender",
-          font: {
-            size: 16,
-            weight: "bold",
-          },
+          text: "Percentage (%)",
           color: "#e8461e",
         },
       },
-      y: {
-        beginAtZero: true,
-        ticks: {
-          callback: (value) => `${value}%`,
-          color: "rgba(33, 35, 49, 0.7)",
-        },
-       
+      x: {
         title: {
           display: true,
-          text: "Number of Scholarships Disbursed",
-          font: {
-            size: 16,
-            weight: "bold",
-          },
-          color: "#e8461e",
+          text: "Scholarship Category",
         },
       },
     },
   };
 
-  // Handle click outside dropdown to close it
+  // Set up support chart data
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        dropdownRefDoughnut.current &&
-        !dropdownRefDoughnut.current.contains(event.target)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
+    // Extract support types and their percentages from the imported data
+    const supportTypes = scholarshipData.support_request.support_types;
+    const labels = supportTypes.map((item) => item.type);
+    const data = supportTypes.map((item) => item.percentage_of_total);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    setSupportRequestData({
+      labels: labels,
+      datasets: [
+        {
+          label: "Support Request Distribution",
+          data: data,
+          backgroundColor: [
+            "rgb(224, 70, 31)", // Color 1
+            "rgb(101, 25, 11)", // Color 2
+            "gray", // Color 4
+            "rgb(134, 37, 15)", // Color 3
+            "rgb(50, 105, 170)", // Color 5 // In Kind Scholarship Support
+          ],
+
+          borderWidth: 1,
+        },
+      ],
+    });
   }, []);
 
-  return (
-    <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
-      {/* Doughnut Chart Section */}
-      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-      <h2 className="text-xl font-semibold text-[#121331] mb-4 text-center">
-          Monthly Income Doughnut Chart
-        </h2>
-        <div className="w-full max-md:h-[54vh] h-full">
-          {incomeData && <Doughnut data={incomeData} options={incomeOptions} />}
-        </div>
-      </div>
+  const supportRequestOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          boxWidth: 15,
+          padding: 20,
+          usePointStyle: true,
+          color: "#e8461e",
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return `${tooltipItem.label}: ${tooltipItem.raw}% from the total ${scholarshipData.support_request.total_entries}`; // Show percentage in tooltip
+          },
+        },
+      },
+    },
+  };
 
-      {/* Gender Chart Section */}
-      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-        <h2 className="text-xl font-semibold text-[#121331] mb-4 text-center">
-          Number of Scholarships Disbursed by Gender
-        </h2>
-        <div className="w-full max-md:h-[54vh] h-full">
-          <Bar data={genderData} options={options} />
+  return (
+    <>
+      <div className="flex justify-center items-center gap-4 p-3 max-md:flex-col bg-[#dcdcdc] py-4">
+        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+          <h2 className="font-lato text-xl text-[#121331] mb-5 text-center font-semibold">
+            Categories of Provided Scholarships by us
+          </h2>
+          <div className="w-full max-md:h-[54vh] h-full">
+            {chartData && <Line data={chartData} options={options} />}
+          </div>
+        </div>
+
+        {/* Support Request Doughnut Chart */}
+        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
+          <h2 className="font-lato text-xl text-[#121331] mb-5 text-center pt-3 font-semibold">
+            Support Channels Breakdown
+          </h2>
+          <div className="w-full max-md:h-[54vh] h-full">
+            {supportRequestData && (
+              <Doughnut
+                data={supportRequestData}
+                options={supportRequestOptions}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

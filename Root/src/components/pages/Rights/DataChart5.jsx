@@ -10,8 +10,8 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
-import IncomeIssuesJson from "../Technology/Issues.json"; // Import the JSON data
-import { text } from "d3";
+import IncomeIssuesJson from "../json/rights/Data.json"; // Import the JSON data
+// import { text } from "d3";
 
 // Register chart.js components for Pie, Doughnut, and Bar charts
 ChartJS.register(
@@ -24,19 +24,19 @@ ChartJS.register(
   BarElement
 );
 
-const ServiverChart = () => {
+const DataChart5 = () => {
   // Abuse Survivor data
-  const abuseSurvivorData = IncomeIssuesJson?.["Abuse Survivor"] || [];
+  const abuseSurvivorData = IncomeIssuesJson?.abuse_survivor || [];
   const abuseSurvivorPercentage = abuseSurvivorData.map((item) => {
-    const survivorCount = item?.["Survivor of abuse"];
-    const totalAttended = item?.["total_attended"];
+    const survivorCount = item?.survivor_of_abuse;
+    const totalAttended = item?.total_attended;
     return survivorCount && totalAttended
       ? ((survivorCount / totalAttended) * 100).toFixed(2)
       : "0";
   });
 
   const chartData = {
-    labels: abuseSurvivorData.map((item) => item.Salary),
+    labels: abuseSurvivorData.map((item) => item.salary),
     datasets: [
       {
         label: "Abuse Survivor Percentage (%)",
@@ -67,7 +67,7 @@ const ServiverChart = () => {
         callbacks: {
           label: (context) => {
             const index = context.dataIndex;
-            const salary = abuseSurvivorData[index]?.Salary;
+            const salary = abuseSurvivorData[index]?.salary;
             const percentage = abuseSurvivorPercentage[index];
             const total = abuseSurvivorData[index]?.total_attended;
             return `${salary}: ${percentage}% of ${total} responses`;
@@ -110,15 +110,15 @@ const ServiverChart = () => {
   // Domestic Violence data
   const domesticViolenceData = IncomeIssuesJson?.domestic_violence || [];
   const domesticViolencePercentage = domesticViolenceData.map((item) => {
-    const survivorCount = item?.["Survivor of domestic violence"];
-    const totalAttended = item?.["total_attended"];
+    const survivorCount = item?.survivor_of_domestic_violence;
+    const totalAttended = item?.total_attended;
     return survivorCount && totalAttended
       ? ((survivorCount / totalAttended) * 100).toFixed(2)
       : "0";
   });
 
   const DomesticChartData = {
-    labels: domesticViolenceData.map((item) => item.Salary),
+    labels: domesticViolenceData.map((item) => item.salary),
     datasets: [
       {
         label: "Domestic Violence Survivor Percentage (%)",
@@ -149,7 +149,7 @@ const ServiverChart = () => {
         callbacks: {
           label: (context) => {
             const index = context.dataIndex;
-            const salary = domesticViolenceData[index]?.Salary;
+            const salary = domesticViolenceData[index]?.salary;
             const percentage = domesticViolencePercentage[index];
             const total = domesticViolenceData[index]?.total_attended;
             return `${salary}: ${percentage}% of ${total} responses`;
@@ -213,4 +213,4 @@ const ServiverChart = () => {
   );
 };
 
-export default ServiverChart;
+export default DataChart5;

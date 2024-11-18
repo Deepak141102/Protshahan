@@ -9,9 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import IncomeIssuesJson from "../Technology/Issues.json"; // Import the JSON data
-import JsonData from "../Technology/Inocme.json"; // Import the JSON data
-import communityJsonData from "../Art/beat.json"; // Renamed imported data to avoid conflict
+import communityJsonData from "../json/beat.json"; // Renamed imported data to avoid conflict
 
 // Register chart.js components
 ChartJS.register(
@@ -23,9 +21,9 @@ ChartJS.register(
   Legend
 );
 
-const IssuesChart = () => {
+const EduChart = () => {
   const firstGenerationLearners =
-    IncomeIssuesJson?.First_Generation_Learner || [];
+  communityJsonData?.First_Generation_Learner || [];
   const totalRespondents = firstGenerationLearners[3]?.total_attended || 0;
 
   const firstGenPercentage = firstGenerationLearners.map((item) => {
@@ -190,7 +188,7 @@ const IssuesChart = () => {
     <>
       <div className="flex  justify-center items-center gap-6  bg-[#dcdcdc]  max-md:flex-col">
         <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-          <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
+          <h2 className="font-lato text-lg font-semibold text-[#121331] mb-5 text-center">
             First-Generation Learners: Salary Analysis Overview{" "}
           </h2>
           <div className="w-full max-md:h-[54vh] h-full">
@@ -198,7 +196,7 @@ const IssuesChart = () => {
           </div>
         </div>
         <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-          <h2 className="font-lato text-lg font-semibold text-[#e8461e] mb-5 text-center">
+          <h2 className="font-lato text-lg font-semibold text-[#121331] mb-5 text-center">
             Community or GEC Bar Chart
           </h2>
           <div className="w-full max-md:h-[54vh] h-full">
@@ -212,4 +210,4 @@ const IssuesChart = () => {
   );
 };
 
-export default IssuesChart;
+export default EduChart;

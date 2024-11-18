@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Pie, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import JsonData from "../Art/beat.json";
+import JsonData from "../json/rights/Data.json";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const HomeVisitsPieChart = () => {
+const DataChart4 = () => {
   const [chartData, setChartData] = useState(null);
   const [memberData, setMemberData] = useState(null);
 
@@ -160,4 +160,4 @@ const HomeVisitsPieChart = () => {
   );
 };
 
-export default HomeVisitsPieChart;
+export default DataChart4;

@@ -1,7 +1,7 @@
 import { React, useState, useRef, useEffect } from "react";
-import { Pie, Radar, Bar, Line, Doughnut } from "react-chartjs-2";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import {Doughnut } from "react-chartjs-2";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -15,7 +15,6 @@ import {
   Filler,
   RadialLinearScale,
 } from "chart.js";
-import { FaGenderless, FaUsers } from "react-icons/fa";
 import RightsPage2 from "../../RightsPage2";
 import DataChart1 from "./DataChart3";
 
