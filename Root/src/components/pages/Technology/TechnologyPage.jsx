@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -27,31 +27,74 @@ ChartJS.register(
 const CombinedBarChart = () => {
   // First chart data state
   const [firstChartData, setFirstChartData] = useState(null);
-
-  // Array of colors to be used for the bars
   const backgroundColors = [
-    "rgb(224, 70, 31)", // Color 1
-    "rgb(101, 25, 11)", // Color 2
-    "rgb(134, 37, 15)", // Color 3
-    "rgb(223, 107, 79)", // Color 4
+    "rgb(224, 70, 31)",
+    "rgb(101, 25, 11)",
+    "rgb(134, 37, 15)",
+    "rgb(223, 107, 79)",
   ];
 
+  const [firstChartOptions, setFirstChartOptions] = useState(null); // <-- Define this here
+
   useEffect(() => {
-    // Extracting the labels and data from the first JSON file
-    const labels = Object.keys(chartData); // ["500-5000", "5000-10000", "10000-15000", ...]
-    const counts = labels.map((label) => chartData[label].count); // [18, 28, 24, 10, 9]
+    const labels = Object.keys(chartData);
+    const counts = labels.map((label) => chartData[label].count);
+
+    // Calculate the total count of people
+    const totalPeople = counts.reduce((sum, count) => sum + count, 0);
+
+    // Calculate percentages
+    const percentages = counts.map((count) => (count / totalPeople) * 100);
+
+    // Calculate dynamic step size for y-axis based on max percentage
+    const maxPercentage = Math.max(...percentages);
+    const stepSize = Math.ceil(maxPercentage / 10) * 10;
 
     setFirstChartData({
       labels: labels,
       datasets: [
         {
-          label: "Count",
-          data: counts,
-          backgroundColor: backgroundColors, // Use the array of colors here
-          borderColor: "rgba(75,192,192,1)", // Bar border color
-          borderWidth: 1, // Bar border width
+          label: "Percentage (%)",
+          data: percentages,
+          backgroundColor: backgroundColors,
+          countData: counts,
         },
       ],
+    });
+
+    // Define firstChartOptions here
+    setFirstChartOptions({
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          font: { size: 20, weight: "bold", family: "'Arial', sans-serif" },
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              const count = tooltipItem.dataset.countData[tooltipItem.dataIndex];
+              const percentage = tooltipItem.raw.toFixed(2);
+              const totalPeople = tooltipItem.dataset.countData.reduce((sum, val) => sum + val, 0);
+              return `Count: ${count}, Percentage: ${percentage}% From Total ${totalPeople}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          title: { display: true, text: "Amount Range", color: "#e8461e", font: { size: 13, weight: "bold" } },
+        },
+        y: {
+          title: { display: true, text: "Percentage Of People", color: "#e8461e", font: { size: 13, weight: "bold" } },
+          beginAtZero: true,
+          min:0,
+          max:50,
+          ticks: { stepSize: 10 },
+        },
+      },
     });
   }, []); // Empty dependency array means this effect runs only once, after the initial render
 
@@ -64,134 +107,91 @@ const CombinedBarChart = () => {
       label: key,
       value,
     }));
-    setSecondChartData(transformedData);
+
+    // Calculate the total value for percentage calculation
+    const totalValue = transformedData.reduce((sum, item) => sum + item.value, 0);
+
+    // Calculate percentages based on the total value
+    const percentages = transformedData.map(item => (item.value / totalValue) * 100);
+
+    // Calculate dynamic bar colors based on the index
+    const barColorArray = transformedData.map(
+      (_, index) => backgroundColors[index % backgroundColors.length]
+    );
+
+    setSecondChartData({
+      labels: transformedData.map((item) => item.label),
+      datasets: [
+        {
+          label: "Skills Data",
+          data: percentages,
+          backgroundColor: barColorArray,
+          valueData: transformedData.map(item => item.value),
+        },
+      ],
+    });
   }, []);
 
-  if (!firstChartData || !secondChartData) return <div>Loading...</div>;
+  // Dynamically calculate the step size for the y-axis
+  const secondChartOptions = useMemo(() => {
+    const maxPercentage = secondChartData
+      ? Math.max(...secondChartData.datasets[0].data)
+      : 0;
+    const stepSize = Math.ceil(maxPercentage / 10) * 10;
 
-  // Define custom colors for the bars of the second chart
-  const barColors = [
-    "rgb(224, 70, 31)",
-    "rgb(101, 25, 11)",
-    "rgb(134, 37, 15)",
-    "rgb(223, 107, 79)",
-  ];
-
-  // Create a color array for the bars, cycling through if there are more bars than colors
-  const barColorArray = secondChartData.map(
-    (_, index) => barColors[index % barColors.length]
-  );
-
-  const secondChartDataFormatted = {
-    labels: secondChartData.map((item) => item.label), // x-axis labels (categories)
-    datasets: [
-      {
-        label: "Services Data", // The label for the dataset
-        data: secondChartData.map((item) => item.value), // y-axis values
-        backgroundColor: barColorArray, // Use the custom colors for the bars
-        borderColor: barColorArray, // Border color for the bars (optional)
-        borderWidth: 1, // Border width for the bars
-      },
-    ],
-  };
-
-  const firstChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        text: "Amount Range",
-        font: {
-          size: 20,
-          weight: "bold",
-          family: "'Arial', sans-serif",
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false,
         },
-      },
-    },
-    scales: {
-      x: {
         title: {
           display: true,
-          text: "Amount Range",
-          color:"#e8461e",
+          text: "Total Number Of People (117)",
           font: {
-            size: 13,
+            size: 20,
             weight: "bold",
+            family: "'Arial', sans-serif",
           },
         },
-        ticks: {
-          font: {
-            size: 13,
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              const value = tooltipItem.dataset.valueData[tooltipItem.dataIndex];
+              const percentage = tooltipItem.raw.toFixed(2);
+              const totalValue = tooltipItem.dataset.valueData.reduce((sum, val) => sum + val, 0);
+              return `Value: ${value}, Percentage: ${percentage}% From Total ${totalValue}`;
+            },
           },
         },
       },
-      y: {
-        title: {
-          display: true,
-          text: "Count",
-          color:"#e8461e",
-          font: {
-            size: 13,
-            weight: "bold",
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Categories",
+            color: "#e8461e",
+            font: { size: 16, weight: "bold" },
           },
         },
-        ticks: {
-          font: {
-            size: 13,
+        y: {
+          title: {
+            display: true,
+            text: "Percentage Of People",
+            color: "#e8461e",
+            font: { size: 13, weight: "bold" },
           },
-          stepSize: 5,
+          beginAtZero: true,
+          min:0,
+          max:50,
+          ticks: { stepSize: 10 },
         },
       },
-    },
-  };
+    };
+  }, [secondChartData]);
 
-  const secondChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        text: "Assistance Services Distribution",
-        font: {
-          size: 20,
-          weight: "bold",
-          family: "'Arial', sans-serif",
-        },
-      },
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Categories",
-          color:"#e8461e",
-          font: {
-            size: 16,
-            weight: "bold",
-          },
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: "Values",
-          color:"#e8461e",
-          font: {
-            size: 13,
-            weight: "bold",
-          },
-        },
-        beginAtZero: true,
-      },
-    },
-  };
+  if (!firstChartData || !firstChartOptions || !secondChartData) return <div>Loading...</div>;
 
   return (
     <div className="bg-[#3c3950] min-h-screen font-lato">
@@ -226,22 +226,21 @@ const CombinedBarChart = () => {
               </p>
             </div>
           </div>
-          <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
+          <div className="flex justify-center items-center gap-6 p-5 bg-[#dcdcdc] max-md:flex-col">
             <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
+              <h2 className="text-[18px] font-bold text-center mb-4 text-[#e8461e]">
+                Income Data Overview
+              </h2>
               <div className="w-full max-md:h-[75vh] h-full">
                 <Bar data={firstChartData} options={firstChartOptions} />
               </div>
             </div>
             <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
-              <h2 className="text-xl font-semibold text-center mb-4 text-[#e8461e]">
-                What skills do you possess among these?
+              <h2 className="text-[18px] font-bold text-center mb-4 text-[#e8461e]">
+                Skills Acquired Through Our NGO’s Support
               </h2>
-
               <div className="w-full max-md:h-[70vh] h-full">
-                <Bar
-                  data={secondChartDataFormatted}
-                  options={secondChartOptions}
-                />
+                <Bar data={secondChartData} options={secondChartOptions} />
               </div>
             </div>
           </div>

@@ -52,7 +52,7 @@ const DomesticViolenceDoughnutChart = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h2 className="text-xl font-semibold text-center mb-4 text-gray-700">Salary Analysis - Domestic Violence Survivor Percentage</h2>
+      <h2 className="text-xl font-bold text-center mb-4 text-gray-700">Salary Analysis - Domestic Violence Survivor Percentage</h2>
       <Doughnut data={chartData} options={options} />
     </div>
   );
