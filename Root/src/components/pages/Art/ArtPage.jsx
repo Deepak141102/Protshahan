@@ -9,9 +9,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import activityData from "./art.json";
+import data from "./art.json";
 
-// Register Chart.js components
+// Register the necessary components from Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,30 +21,31 @@ ChartJS.register(
   Legend
 );
 
-const BarChart = () => {
-  // Access dataset1 data from JSON
-  const dataset1 = activityData.dataset1;
+const GirlParticipantsChart = () => {
+  // The JSON data you provided
 
-  // Prepare data for the first chart (Activity Counts and Percentages)
-  const activityNames = dataset1.activities.map((activity) => activity.name);
-  const activityCounts = dataset1.activities.map((activity) => activity.count);
-  const percentages = activityCounts.map((count) =>
-    ((count / dataset1.total) * 100).toFixed(2)
+  // Extract the activity names and participant counts from the JSON data
+  const activityNames = data.girl_participants.activities.map(
+    (activity) => activity.name
+  );
+  const participantCounts = data.girl_participants.activities.map(
+    (activity) => activity.count
   );
 
-  // Chart.js data for the first chart (Percentage of activities)
-  const data = {
-    labels: activityNames,
+  // Prepare chart data
+  const chartData = {
+    labels: activityNames, // Activity names as labels
     datasets: [
       {
-        label: "Percentage",
-        data: percentages,
+        label: "Number of Participants", // Dataset label
+        data: participantCounts, // Data for the bars
         backgroundColor: "#982722",
+       
       },
     ],
   };
 
-  // Chart options for the first chart
+  // Chart options for customization (optional)
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -54,19 +55,6 @@ const BarChart = () => {
       },
       title: {
         display: true,
-        text: "Activities Conducted (Total of 511 Female Applicants)",
-      },
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            const index = context.dataIndex;
-            const activityName = dataset1.activities[index].name;
-            const count = activityCounts[index];
-            const percentage = percentages[index];
-
-            return `${activityName}: ${percentage}% participants (${count} of total ${dataset1.total})`;
-          },
-        },
       },
     },
     scales: {
@@ -78,7 +66,7 @@ const BarChart = () => {
           display: true,
           text: "Activities",
           font: {
-            size: 16,
+            size: 13,
             weight: "bold",
           },
           color: "#e8461e",
@@ -86,15 +74,18 @@ const BarChart = () => {
       },
       y: {
         beginAtZero: true,
+        min: 0,
+        max: 110,
+
         ticks: {
-          callback: (value) => `${value}%`,
+          callback: (value) => `${value}`,
           color: "rgba(33, 35, 49, 0.7)",
         },
         title: {
           display: true,
-          text: "Female applicants percentage",
+          text: "Female applicants Number",
           font: {
-            size: 16,
+            size: 13,
             weight: "bold",
           },
           color: "#e8461e",
@@ -102,26 +93,31 @@ const BarChart = () => {
       },
     },
   };
+  // count of activity sessions
+  const activities = data.girl_participants.activities.map(
+    (activity) => activity.name
+  );
+  const sessions = data.girl_participants.activities.map(
+    (activity) => activity.count
+  );
+  const sessionCounts = data.sessions.activities_session.map(
+    (activity) => activity.count
+  );
 
-  // Access dataset2 data from JSON (Sessions)
-  const dataset2 = activityData.sessions;
-
-  // Prepare data for the second chart (Sessions Count)
-  const sessionCounts = dataset2.activities_session.map((session) => session.count);
-
-  // Chart.js data for the second chart (Sessions)
+  // Prepare chart data
   const sessionData = {
-    labels: activityNames,
+    labels: activities, // Activity names as labels
     datasets: [
       {
-        label: "Sessions Count",
-        data: sessionCounts,
+        label: "Number of Sessions", // Dataset for sessions
+        data: sessionCounts, // Data for the bars
         backgroundColor: "#3d1512",
+        
       },
     ],
   };
 
-  // Chart options for the second chart
+  // Chart options for customization (optional)
   const sessionOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -131,17 +127,6 @@ const BarChart = () => {
       },
       title: {
         display: true,
-        text: "Activities and Total Sessions Conducted by Us",
-      },
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            const index = context.dataIndex;
-            const activityName = dataset2.activities_session[index].name;
-            const count = sessionCounts[index];
-            return `${activityName}: ${count} sessions`;
-          },
-        },
       },
     },
     scales: {
@@ -153,7 +138,7 @@ const BarChart = () => {
           display: true,
           text: "Activities",
           font: {
-            size: 16,
+            size: 13,
             weight: "bold",
           },
           color: "#e8461e",
@@ -168,7 +153,7 @@ const BarChart = () => {
           display: true,
           text: "Number of Sessions Conducted",
           font: {
-            size: 16,
+            size: 13,
             weight: "bold",
           },
           color: "#e8461e",
@@ -178,6 +163,7 @@ const BarChart = () => {
   };
 
   return (
+    <>
     <div className="bg-[#3c3950] min-h-screen font-lato">
       <div className="bg-[#212331] text-white py-8 px-4 max-md:px-0 ">
         <div className="flex text-2xl md:text-4xl p-4">
@@ -210,28 +196,30 @@ const BarChart = () => {
               </p>
             </div>
           </div>
-          <div className="flex justify-center items-center gap-6 p-5 bg-[#dcdcdc] max-md:flex-col">
-            <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-              <h2 className="text-xl font-semibold text-[#121331] mb-4 text-center">
-                Activities Conducted (Total of 511 Female Applicants)
-              </h2>
-              <div className="w-full max-md:h-[54vh] h-full">
-                <Bar data={data} options={options} />
-              </div>
-            </div>
-            <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 py-6 flex justify-center items-center flex-col shadow-md rounded-lg">
-              <h2 className="text-xl font-semibold text-[#121331] mb-4 text-center">
-                Activities and Total Sessions Conducted by Us
-              </h2>
-              <div className="w-full max-md:h-[54vh] h-full">
-                <Bar data={sessionData} options={sessionOptions} />
-              </div>
-            </div>
+
+      <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
+        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
+          <h2 className="font-lato text-xl text-[#121331] mb-3 text-center font-semibold">
+            Girl Participation Statistics in Arts and Activities
+          </h2>
+          <div className="w-full max-md:h-[54vh] h-full">
+            <Bar data={chartData} options={options} />
+          </div>
+        </div>
+        <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
+          <h2 className="font-lato text-xl text-[#121331] mb-3 text-center font-semibold">
+            Number of Sessions Conducted by us
+          </h2>
+          <div className="w-full max-md:h-[54vh] h-full">
+            <Bar data={sessionData} options={sessionOptions} />
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
+      </div>
+    </>
   );
 };
 
-export default BarChart;
+export default GirlParticipantsChart;
