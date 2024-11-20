@@ -215,21 +215,8 @@
           "description": "Facilitation of income certificate applications.",
           "grand_total": 114
         }
-      ]}, "community_or_gec": {
-        "total_applicants": 200,
-        "applicants": [
-          {
-            "type": "Community",
-            "hindi": "सामुदायिक",
-            "count": 82,
-            "percentage_of_total": 41
-          },
-          {
-            "type": "Girl Empowerment Center",
-            "hindi": "बालिका सशक्तिकरण केंद्र",
-            "count": 118,
-            "percentage_of_total": 59
-          }
-        ]
-      }
+      ]}
+      
+      
+     
     }
