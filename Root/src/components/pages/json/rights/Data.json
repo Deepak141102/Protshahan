@@ -296,5 +296,17 @@
         "percentage_of_total": 1.52
       }
     ]
-  }
+  },
+  
+    "Scholarship_category": {
+      "FinancialCrisis": 31,
+      "EducationalChallenges": 8,
+      "HigherEducation": 21,
+      "EducationSupport": 72,
+      "BasicNeeds": 14,
+      "HealthCrisis": 2,
+      "Scholar_total": 180
+    }
+  
+  
 }

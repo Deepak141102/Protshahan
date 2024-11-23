@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import data from "../json/education/GovtLinkage.json"; // Ensure path is correct
+import scholarData from "../json/rights/Data.json";
 
 const DataChart7 = () => {
   const [selectedYear, setSelectedYear] = useState(null);
@@ -55,20 +56,104 @@ const DataChart7 = () => {
       },
     ],
   };
+  // scholarship categories
+  const [chartData, setChartData] = useState(null);
+
+  useEffect(() => {
+    const scholarshipCategory = scholarData.Scholarship_category;
+
+    // Extract categories and their values
+    const labels = Object.keys(scholarshipCategory).filter(
+      (key) => key !== "Scholar_total"
+    );
+    const values = labels.map((label) => scholarshipCategory[label]);
+
+    setChartData({
+      labels: labels,
+      datasets: [
+        {
+          label: "Scholarship Categories",
+          data: values,
+          backgroundColor: [
+            "rgb(224, 70, 31)", // Color 1
+            "rgb(134, 37, 15)", // Color 3
+            "#919191", // Color 4
+            "rgb(101, 25, 11)", // Color 2
+            "#ce441a", // Color 5
+            "#ce441a", // Color 6
+          ],
+          borderColor: "rgba(255, 255, 255, 1)",
+          borderWidth: 2,
+        },
+      ],
+    });
+  }, []);
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          boxWidth: 15,
+          padding: 10,
+          usePointStyle: true,
+          color: "#e8461e",
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return `${tooltipItem.label}: ${tooltipItem.raw} scholarships`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Scholarship Categories",
+          color: "#e8461e",
+          font: {
+            size: 13,
+            weight: "bold",
+          },
+        },
+        ticks: {
+          maxRotation: 0, // Keep the labels horizontal
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Number of Scholarships",
+          color: "#e8461e",
+          font: {
+            size: 13,
+            weight: "bold",
+          },
+        },
+        beginAtZero: true,
+        ticks: {
+          stepSize: 10, // Set increment to 10 for better readability
+        },
+      },
+    },
+  };
 
   return (
-    <div className="flex justify-center py-10 px-4 bg-[#dcdcdc]">
-      <div className="container mx-auto p-4 bg-white shadow-lg rounded-lg max-w-6xl">
-        <div className="flex justify-start p-4">
-          {showCategoryChart && (
-            <button
-              className="transition-button"
-              onClick={handleBackToYearlyChart}
-            >
-              <IoMdArrowRoundBack className="text-white text-2xl hover:text-gray-300" />
-            </button>
-          )}
-        </div>
+    <div className="flex  justify-center items-center gap-6 p-5 bg-[#dcdcdc]  max-md:flex-col">
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
+        {showCategoryChart && (
+          <button
+            className="transition-button"
+            onClick={handleBackToYearlyChart}
+          >
+            <IoMdArrowRoundBack className="text-white text-2xl hover:text-gray-300" />
+          </button>
+        )}
         <h1 className="text-2xl font-semibold text-[#212331] text-center mb-4">
           Interactive Data Visualization
         </h1>
@@ -161,7 +246,14 @@ const DataChart7 = () => {
             )}
           </div>
         </div>
-        
+      </div>
+      <div className="w-1/2 max-md:w-full h-[75vh] bg-white p-5 flex justify-center items-center flex-col shadow-md rounded-lg">
+        <h2 className="font-lato text-xl text-[#121331] mb-3 text-center font-semibold">
+          Scholarships that Matter: A Category Overview{" "}
+        </h2>
+        <div className="w-full max-md:h-[54vh] h-full">
+          {chartData && <Bar data={chartData} options={options} />}
+        </div>
       </div>
       <style>{`.chart-wrapper {
   position: relative;

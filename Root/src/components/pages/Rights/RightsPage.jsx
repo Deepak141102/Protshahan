@@ -11,6 +11,7 @@ import ServiverChart from "./DataChart5";
 import LostChart from "./DataChart6";
 import ScholarChart from "./DataChart2";
 import DataChart7 from "./DataChart7";
+import Terc from "./Tearrr";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -203,6 +204,7 @@ const Rights = () => {
         <ServiverChart />
         <LostChart />
         <DataChart7 />
+        {/* <Terc/> */}
 
       </div>
     </div>
